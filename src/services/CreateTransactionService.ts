@@ -1,7 +1,7 @@
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import Transaction from '../models/Transaction';
 
-interface TransactionDTO {
+interface Request {
   title: string;
   value: number;
   type: 'income' | 'outcome';
@@ -14,7 +14,7 @@ class CreateTransactionService {
     this.transactionsRepository = transactionsRepository;
   }
 
-  public execute({ title, value, type }: TransactionDTO): Transaction {
+  public execute({ title, value, type }: Request): Transaction {
     if (type === 'outcome') {
       const { total = 0 } = this.transactionsRepository.getBalance();
       if (value > total) {
